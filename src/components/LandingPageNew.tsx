@@ -36,7 +36,7 @@ export function LandingPageNew({ onGetStarted }: { onGetStarted: () => void }) {
         <section className="landing-hero">
           <div className="container landing-hero-content">
             <div className="landing-badge">
-              <p className="landing-badge-text">✨ Smart Financial Management</p>
+              <p className="landing-badge-text">✨ Your Digital Companion for Balance, Budget, and Success.</p>
             </div>
             <h1 className="landing-hero-title">
               Take Control of Your <span className="landing-hero-gradient">Financial Future</span>
