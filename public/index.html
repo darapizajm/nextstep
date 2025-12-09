@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextStep - Take Control of Your Financial Future</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: 262 80% 50%;
+      --accent: 280 85% 55%;
+      --background: 0 0% 100%;
+      --foreground: 0 0% 3.6%;
+      --card: 0 0% 100%;
+      --card-foreground: 0 0% 3.6%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+      --border: 214.3 31.8% 91.4%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: 0 0% 3.6%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 8.5%;
+        --card-foreground: 0 0% 98%;
+        --muted-foreground: 215.4 16.3% 56.9%;
+        --border: 215.4 16.3% 16.9%;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header */
+    .landing-header {
+      border-bottom: 1px solid hsl(var(--border));
+      background-color: hsl(var(--card) / 0.5);
+      -webkit-backdrop-filter: blur(0.5rem);
+      backdrop-filter: blur(0.5rem);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .landing-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      gap: 0.75rem;
+      flex-wrap: wrap; /* allow wrapping on small screens */
+    }
+
+    .landing-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
+
+    .landing-logo-icon {
+      height: 2rem;
+      width: 2rem;
+      background: linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--accent)));
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .landing-logo-text {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: hsl(var(--foreground));
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .landing-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 0 1 auto;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    /* Button Styles */
+    button {
+      padding: 0.5rem 1rem;
+      background-color: hsl(var(--primary));
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 300ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: hsl(var(--primary) / 0.9);
+      transform: translateY(-0.125rem);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    button.btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      min-width: 160px;
+    }
+
+    /* Hero Section */
+    .landing-hero {
+      position: relative;
+      padding: 4rem 0 7rem;
+    }
+
+    @media (min-width: 768px) {
+      .landing-hero {
+        padding: 7rem 0;
+      }
+    }
+
+    .landing-hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 56rem;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .landing-badge {
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      border-radius: 9999px;
+      background-color: hsl(var(--primary) / 0.1);
+      border: 1px solid hsl(var(--primary) / 0.2);
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .landing-badge-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: hsl(var(--primary));
+    }
+
+    /* Responsive hero title (scales smoothly) */
+    .landing-hero-title {
+      font-size: clamp(1.6rem, 6vw, 3.75rem);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .landing-hero-gradient {
+      background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .landing-hero-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .landing-hero-description {
+        font-size: 1.25rem;
+      }
+    }
+
+    .landing-hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+
+    /* Features Section */
+    section {
+      padding: 4rem 0;
+    }
+
+    .landing-features-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .landing-features-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .landing-features-subtitle {
+      color: hsl(var(--muted-foreground));
+      font-size: 1.125rem;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    /* Responsive grid using auto-fit so cards adapt to available width */
+    .landing-features-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    @media (min-width: 768px) {
+      .landing-features-grid {
+        gap: 1.5rem;
+      }
+    }
+
+    /* Feature Card */
+    .landing-feature-card {
+      padding: 1.5rem;
+      background-color: hsl(var(--card));
+      border: 1px solid hsl(var(--border) / 0.5);
+      border-radius: 0.75rem;
+      transition: all 300ms;
+    }
+
+    .landing-feature-card:hover {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      transform: translateY(-0.25rem);
+    }
+
+    .landing-feature-icon-wrapper {
+      margin-bottom: 1rem;
+      padding: 0.625rem;
+      background-color: hsl(var(--primary) / 0.1);
+      border-radius: 0.5rem;
+      width: fit-content;
+      font-size: 1.5rem;
+    }
+
+    .landing-feature-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .landing-feature-description {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.625;
+    }
+
+    /* CTA Section */
+    .landing-cta-card {
+      padding: 3rem;
+      background: linear-gradient(
+        to bottom right,
+        hsl(var(--primary) / 0.05),
+        hsl(var(--accent) / 0.05),
+        hsl(var(--primary) / 0.05)
+      );
+      border: 1px solid hsl(var(--primary) / 0.1);
+      border-radius: 1.5rem;
+    }
+
+    .landing-cta-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .landing-cta-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+    }
+
+    @media (min-width: 768px) {
+      .landing-cta-title {
+        font-size: 2.25rem;
+      }
+    }
+
+    .landing-cta-description {
+      font-size: 1.125rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    /* Terms Section */
+    .landing-terms-card {
+      padding: 1.5rem;
+      border: 1px solid hsl(var(--primary) / 0.1);
+      background-color: hsl(var(--card));
+      border-radius: 0.75rem;
+    }
+
+    .landing-terms-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .landing-terms-checkbox {
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .landing-terms-label {
+      font-size: 0.875rem;
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .landing-terms-label a {
+      color: hsl(var(--primary));
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .landing-terms-label a:hover {
+      color: hsl(var(--accent));
+    }
+
+    /* Footer */
+    .landing-footer {
+      border-top: 1px solid hsl(var(--border) / 0.4);
+      padding: 3rem 1rem;
+      margin-top: 4rem;
+    }
+
+    .landing-footer-content {
+      text-align: center;
+    }
+
+    .landing-footer-text {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.875rem;
+    }
+
+    .landing-footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .landing-footer-link {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      text-decoration: none;
+      transition: color 300ms;
+    }
+
+    .landing-footer-link:hover {
+      color: hsl(var(--primary));
+    }
+
+    /* Terms Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 1rem; /* ensure spacing on small screens */
+    }
+
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: hsl(var(--card));
+      padding: 2rem;
+      border-radius: 0.75rem;
+      width: 100%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid hsl(var(--border));
+      padding-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+    }
+
+    .modal-body h3 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: hsl(var(--foreground));
+      font-weight: 600;
+    }
+
+    .modal-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Small screen adjustments */
+    @media (max-width: 640px) {
+      .landing-header-container {
+        padding: 0.5rem 0;
+      }
+
+      .landing-header-actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 0.5rem;
+      }
+
+      /* stack header buttons vertically to improve touch targets */
+      .landing-header-actions {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .landing-header-actions button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      /* make hero CTA and main CTAs easy to tap on phones */
+      .landing-hero-cta, .landing-cta-content {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .landing-hero-cta button.btn-lg,
+      .landing-cta-card .btn-lg {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .landing-feature-card {
+        padding: 1.25rem;
+      }
+
+      .landing-badge-text {
+        font-size: 0.85rem;
+      }
+
+      .landing-logo-text {
+        font-size: 1rem;
+      }
+
+      .landing-logo-icon {
+        height: 1.75rem;
+        width: 1.75rem;
+      }
+    }
+
+    /* Medium / Large screen refinements */
+    @media (min-width: 1024px) {
+      .container { padding: 0 1.25rem; }
+      .landing-header-container { padding: 1rem 0; }
+    }
+
+    /* Accessibility: focus outlines */
+    button:focus {
+      outline: 3px solid hsl(var(--primary) / 0.25);
+      outline-offset: 2px;
+    }
+
+    /* Utility */
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <!-- Header -->
+    <header class="landing-header">
+      <div class="container landing-header-container">
+        <div class="landing-logo">
+          <div class="landing-logo-icon">⚡</div>
+          <span class="landing-logo-text">NextStep</span>
+        </div>
+        <div class="landing-header-actions">
+          <button id="termsBtn">Terms & Conditions</button>
+          <button id="getStartedBtn" class="btn-primary">Get Started</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="landing-hero">
+      <div class="container landing-hero-content">
+        <div class="landing-badge">
+          <p class="landing-badge-text">✨ Smart Financial Management</p>
+        </div>
+        <h1 class="landing-hero-title">
+          Take Control of Your <span class="landing-hero-gradient">Financial Future</span>
+        </h1>
+        <p class="landing-hero-description">
+          NextStep is your all-in-one platform for smart budgeting, goal tracking, and financial planning designed specifically for students who want to succeed.
+        </p>
+        <div class="landing-hero-cta">
+          <button id="heroCtaBtn" class="btn-lg">Start Your Journey →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+      <div class="container">
+        <div class="landing-features-header">
+          <h2 class="landing-features-title">Powerful Features</h2>
+          <p class="landing-features-subtitle">
+            Everything you need to manage your finances, tasks, and time efficiently.
+          </p>
+        </div>
+
+        <div class="landing-features-grid">
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">📈</div>
+            <h3 class="landing-feature-title">Smart Budget Tracker</h3>
+            <p class="landing-feature-description">Monitor daily expenses and automatically categorize spending habits with AI-powered insights.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">⚡</div>
+            <h3 class="landing-feature-title">Goal-Based Savings</h3>
+            <p class="landing-feature-description">Set financial goals and track progress visually with customizable milestones.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">🕐</div>
+            <h3 class="landing-feature-title">Routine Planner</h3>
+            <p class="landing-feature-description">Combine financial planning with time management for better daily schedules.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">📊</div>
+            <h3 class="landing-feature-title">Analytics Dashboard</h3>
+            <p class="landing-feature-description">Get insights into monthly trends, overspending areas, and overall budget health.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">🧠</div>
+            <h3 class="landing-feature-title">AI Recommendations</h3>
+            <p class="landing-feature-description">Receive personalized budgeting strategies and lifestyle adjustment suggestions.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">🔔</div>
+            <h3 class="landing-feature-title">Smart Reminders</h3>
+            <p class="landing-feature-description">Automated alerts for upcoming payments and daily task priorities.</p>
+          </div>
+
+          <div class="landing-feature-card">
+            <div class="landing-feature-icon-wrapper">👥</div>
+            <h3 class="landing-feature-title">Community Tips</h3>
+            <p class="landing-feature-description">Share budgeting hacks and productivity routines with other students.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+      <div class="container">
+        <div class="landing-cta-card">
+          <div class="landing-cta-content">
+            <h2 class="landing-cta-title">Ready to Transform Your Finances?</h2>
+            <p class="landing-cta-description">
+              Join thousands of students who are taking control of their financial future with NextStep.
+            </p>
+            <button id="ctaBtn" class="btn-lg">Get Started Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms Section -->
+    <section>
+      <div class="container">
+        <div class="landing-terms-card">
+          <div class="landing-terms-container">
+            <input type="checkbox" id="termsAcceptCheckbox" class="landing-terms-checkbox">
+            <label for="termsAcceptCheckbox" class="landing-terms-label">
+              I agree to the <a id="termsLink">Terms and Conditions</a> and accept all terms and conditions
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <div class="container landing-footer-content">
+        <p class="landing-footer-text">© 2025 NextStep. All rights reserved.</p>
+        <div class="landing-footer-links">
+          <a href="#" class="landing-footer-link">Privacy Policy</a>
+          <a href="#" class="landing-footer-link">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Terms & Conditions Modal -->
+    <div id="termsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Terms & Conditions</h2>
+          <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h3>1. Acceptance of Terms</h3>
+          <p>By accessing and using NextStep, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+          <h3>2. Use License</h3>
+          <p>Permission is granted to temporarily download one copy of the materials (information or software) on NextStep for personal, non-commercial transitory viewing only.</p>
+
+          <h3>3. Disclaimer</h3>
+          <p>The materials on NextStep are provided on an 'as is' basis. NextStep makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+          <h3>4. Limitations</h3>
+          <p>In no event shall NextStep or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on NextStep, even if NextStep or an authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+
+          <h3>5. Accuracy of Materials</h3>
+          <p>The materials appearing on NextStep could include technical, typographical, or photographic errors. NextStep does not warrant that any of the materials on the website are accurate, complete, or current.</p>
+
+          <h3>6. Links</h3>
+          <p>NextStep has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by NextStep of the site. Use of any such linked website is at the user's own risk.</p>
+
+          <h3>7. Modifications</h3>
+          <p>NextStep may revise these terms of service for the website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
+
+          <h3>8. Governing Law</h3>
+          <p>These terms and conditions are governed by and construed in accordance with the laws of your jurisdiction, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wrap behavior in DOMContentLoaded and guard against missing elements
+    document.addEventListener('DOMContentLoaded', () => {
+      // Modal handling
+      const termsModal = document.getElementById('termsModal');
+      const termsBtn = document.getElementById('termsBtn');
+      const termsLink = document.getElementById('termsLink');
+      const modalClose = document.getElementById('modalClose');
+
+      if (termsBtn && termsModal) {
+        termsBtn.addEventListener('click', () => {
+          termsModal.classList.add('open');
+        });
+      }
+
+      if (termsLink && termsModal) {
+        termsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          termsModal.classList.add('open');
+        });
+      }
+
+      if (modalClose && termsModal) {
+        modalClose.addEventListener('click', () => {
+          termsModal.classList.remove('open');
+        });
+      }
+
+      if (termsModal) {
+        termsModal.addEventListener('click', (e) => {
+          if (e.target === termsModal) {
+            termsModal.classList.remove('open');
+          }
+        });
+      }
+
+      // Terms checkbox and button logic
+      const termsCheckbox = document.getElementById('termsAcceptCheckbox');
+      const getStartedBtn = document.getElementById('getStartedBtn');
+      const heroCtaBtn = document.getElementById('heroCtaBtn');
+      const ctaBtn = document.getElementById('ctaBtn');
+
+      function updateButtonState() {
+        const isChecked = termsCheckbox ? termsCheckbox.checked : false;
+        if (getStartedBtn) getStartedBtn.disabled = !isChecked;
+        if (heroCtaBtn) heroCtaBtn.disabled = !isChecked;
+        if (ctaBtn) ctaBtn.disabled = !isChecked;
+      }
+
+      if (termsCheckbox) {
+        termsCheckbox.addEventListener('change', updateButtonState);
+      }
+
+      // Redirect to dashboard on button click.
+      // We set a minimal `userData` in localStorage so the React app recognizes a logged-in user
+      // and will render the dashboard (App reads `userData` from localStorage on startup).
+      function redirectToDashboard() {
+        const isChecked = termsCheckbox ? termsCheckbox.checked : true;
+        if (!isChecked) {
+          alert('Please accept the Terms and Conditions to continue.');
+          return;
+        }
+
+        try {
+          const guest = { firstName: 'Guest', lastName: '', email: 'guest@example.com' };
+          localStorage.setItem('userData', JSON.stringify(guest));
+        } catch (e) {
+          console.warn('Could not write user data to localStorage', e);
+        }
+
+        // Navigate to app root. The React app will read `userData` and show the dashboard.
+        window.location.href = '/';
+      }
+
+      if (getStartedBtn) getStartedBtn.addEventListener('click', redirectToDashboard);
+      if (heroCtaBtn) heroCtaBtn.addEventListener('click', redirectToDashboard);
+      if (ctaBtn) ctaBtn.addEventListener('click', redirectToDashboard);
+
+      // Initialize button state
+      updateButtonState();
+    });
+  </script>
+</body>
+</html>

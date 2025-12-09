@@ -1,0 +1,2 @@
+# Exclude all installed packages and dependencies
+node_modules/
