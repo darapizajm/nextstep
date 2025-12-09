@@ -25,7 +25,7 @@ export function LandingPageNew({ onGetStarted }: { onGetStarted: () => void }) {
           </div>
           <div className="landing-header-actions">
             <button className="btn-text" onClick={() => setShowTermsModal(true)}>Terms & Conditions</button>
-            <button onClick={handleGetStarted} className="btn-lg">Get Started</button>
+            <button onClick={handleGetStarted} className="btn-lg" disabled={!termsAccepted}>Get Started</button>
           </div>
         </div>
       </header>
@@ -45,7 +45,7 @@ export function LandingPageNew({ onGetStarted }: { onGetStarted: () => void }) {
               NextStep is your all-in-one platform for smart budgeting, goal tracking, and financial planning designed specifically for students who want to succeed.
             </p>
             <div className="landing-hero-cta">
-              <button onClick={handleGetStarted} className="btn-lg">Start Your Journey →</button>
+              <button onClick={handleGetStarted} className="btn-lg" disabled={!termsAccepted}>Start Your Journey →</button>
             </div>
           </div>
         </section>

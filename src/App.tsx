@@ -377,6 +377,7 @@ export default function App() {
   const [reminders, setReminders] = useState<Reminder[]>(initialReminders)
 
   const [user, setUser] = useState<{ firstName: string; lastName: string; email: string } | null>(null)
+  const [showLogin, setShowLogin] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -449,17 +450,21 @@ export default function App() {
     return <div className="flex items-center justify-center h-screen">Loading...</div>
   }
 
-  if (!user) {
+  // Show landing page if no user and not in login flow
+  if (!user && !showLogin) {
     return (
       <LandingPageNew
         onGetStarted={() => {
-          // Set minimal guest user data so the dashboard shows
-          const guestUser = { firstName: 'Guest', lastName: '', email: 'guest@example.com' }
-          setUser(guestUser)
-          localStorage.setItem('userData', JSON.stringify(guestUser))
+          // Show login form instead of going directly to dashboard
+          setShowLogin(true)
         }}
       />
     )
+  }
+
+  // Show login page after user clicks "Get Started"
+  if (!user && showLogin) {
+    return <Login onLogin={handleLogin} />
   }
 
   return (
